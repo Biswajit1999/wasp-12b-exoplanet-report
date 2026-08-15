@@ -1,10 +1,20 @@
-# WASP-12 b — Real TESS Transit Report
+# WASP-12 b: A Doomed Hot Jupiter with a Decaying Orbit
 
+<!-- TARGET-IDENTITY-START -->
+<p align="center">
+  <img src="assets/artist_concept.webp" alt="Artist's interpretation of WASP-12 b near its host star" width="900">
+</p>
+
+<p align="center"><em>AI-generated artist's interpretation informed by the measured system properties; not a direct image.</em></p>
+
+**Hot Jupiter · orbital decay · extreme irradiation**
+
+A severely irradiated giant spiralling toward its star, framed as a careful TESS timing analysis where ephemeris drift is itself part of the science.
+<!-- TARGET-IDENTITY-END -->
 <p align="center">
   <img src="figures/wasp12b_tess_transit.png" alt="Phase-folded real TESS transit light curve of WASP-12 b" width="760">
 </p>
 
-One real public TESS SPOC light curve; one historical NASA Exoplanet Archive ephemeris; one timing-adjusted, limb-darkened transit fit.
 
 **[Open the full report](https://biswajit1999.github.io/wasp-12b-exoplanet-report/)** — the live GitHub Pages version.
 
