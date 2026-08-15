@@ -4,8 +4,7 @@
   <img src="figures/wasp12b_tess_transit.png" alt="Phase-folded real TESS transit light curve of WASP-12 b" width="760">
 </p>
 
-One real, public TESS SPOC light curve; one saved NASA Exoplanet Archive
-ephemeris; one reproducible flat-versus-box statistical comparison.
+One real public TESS SPOC light curve; one historical NASA Exoplanet Archive ephemeris; one timing-adjusted, limb-darkened transit fit.
 
 **[Open the full report](https://biswajit1999.github.io/wasp-12b-exoplanet-report/)** — the live GitHub Pages version.
 
@@ -24,30 +23,29 @@ python scripts/analyze_multisector.py
 pytest tests/ -v
 ```
 
-The script keeps finite `QUALITY == 0` cadences, normalizes `PDCSAP_FLUX`,
-applies one symmetric robust outlier rule, and examines ±2.5 published transit
-durations around the fixed NASA ephemeris. It compares a weighted constant with
-a two-level box whose depth is fitted. Timing and duration are not searched.
+The script keeps finite `QUALITY == 0` cadences, normalizes `PDCSAP_FLUX`, and applies one symmetric robust outlier rule. A local linear null is compared with a circular quadratic-limb-darkened transit. The archive period and predicted phase are retained, while midpoint, radius ratio, impact parameter, baseline, and baseline slope are fitted inside a bounded window. The limb-darkening coefficients and scaled semi-major axis are fixed and disclosed in the CSV.
 
-## What the numbers show
+## What the corrected fit shows
 
 | Quantity | Result |
 |---|---:|
 | TESS sector | 20 |
-| Cadences in comparison | 9498 |
-| Fitted box depth | 12579.0 ± 105.3 ppm |
-| Flat χ² / dof / p | 18703.88 / 9497 / < 1e-300 |
-| Box χ² / dof / p | 4428.10 / 9496 / 1.0000 |
-| Improvement Δχ² / Δdof / p | 14275.77 / 1 / < 1e-300 |
+| Cadences in fitted window | 11385 |
+| Transit support | ΔBIC ≥ 10 |
+| Midpoint correction | -0.011 h ± 0.33 min |
+| Model mid-transit depth | 15714.4 ± 125.2 ppm |
+| Radius ratio Rp/Rs | 0.11838 |
+| Fitted / published duration | 3.016 / 3.001 h |
+| Linear null χ² / dof / BIC | 19856.94 / 11383 / 19875.62 |
+| Transit χ² / dof / BIC | 2692.96 / 11380 / 2739.66 |
+| ΔBIC (null − transit) | 17135.95 |
 
-The fixed-window box improves strongly on a flat light curve for these data. This establishes only how these archived fluxes compare with this
-pre-specified box model. It does not independently confirm the planet or identify
-an atmosphere.
+The timing-adjusted transit is strongly preferred by ΔBIC = 17136.0. Its fitted midpoint is -0.011 hours from the historical prediction; the model's mid-transit depth is 15714.4 ± 125.2 ppm. A fitted timing correction can diagnose ephemeris drift, but this single-sector fit is not a replacement for a global transit-timing analysis.
 
 <!-- MULTISECTOR-UPGRADE-START -->
 ## Multi-sector robustness and correlated noise
 
-The fixed archive ephemeris was fitted independently in 3 usable sector(s) (S20, S43, S45). Formal depth errors were inflated by sqrt(max(reduced chi-square, 1)) times the residual time-averaging beta factor (observed range 2.24-2.44). The robust inverse-variance depth is 12308.1 +/- 108.8 ppm; Cochran Q = 1.91 for 2 dof (p = 0.3848). These scaled errors address underestimated scatter and short-timescale correlation, but they are not a full Gaussian-process or physical limb-darkened transit fit.
+The archive prediction was timing-adjusted independently in 3 fitted sector(s) (S20, S43, S45), of which 3 meet Delta BIC >= 10. Formal depth errors were inflated by sqrt(max(reduced chi-square, 1)) times the residual time-averaging beta factor (observed range 1.22-1.67). The robust inverse-variance model depth across supported sectors is 15429.6 +/- 55.8 ppm; Cochran Q = 5.45 for 2 dof (p = 0.0656). These scaled errors address underestimated scatter and short-timescale correlation, but they are not a full Gaussian-process or physical limb-darkened transit fit.
 
 <p align="center"><img src="figures/wasp12b_multisector_transits.png" alt="Independent sector transit fits for WASP-12 b" width="760"></p>
 
@@ -71,11 +69,11 @@ The per-sector table is in [`figures/multisector_statistics.csv`](figures/multis
 
 ## Limitations
 
-- A box is not a limb-darkened physical transit model and does not retrieve radius ratio, impact parameter, or stellar density.
-- Period, mid-transit epoch, and duration are fixed to one NASA composite row; their uncertainties and transit-timing variations are not propagated.
-- SPOC PDCSAP processing, crowding corrections, stellar variability, time-correlated noise, and underestimated point uncertainties can make absolute χ² p-values poor even when the relative comparison is informative.
-- The χ² improvement uses one additional fitted depth parameter and no timing search. It is not a blind detection false-alarm probability, and nearby-star contamination is not ruled out.
-- Published global fits combine sectors, instruments, detrending choices, limb darkening, and astrophysical priors. This deliberately smaller test does not replace them.
+- The orbit is assumed circular and the quadratic limb-darkening coefficients are fixed representative values; they are not atmosphere-grid interpolations.
+- The scaled semi-major axis is derived from the saved composite semi-major axis and stellar radius; their uncertainties are not propagated.
+- Midpoint freedom corrects accumulated ephemeris error but introduces a bounded timing search. ΔBIC, not a naïve one-parameter p-value, is used as the support gate.
+- PDCSAP processing, dilution, stellar variability, transit-timing variations, and long-timescale covariance can still bias the inferred geometry.
+- Radius ratio, impact parameter, and fixed limb darkening are correlated. Published global fits with physical priors and simultaneous detrending remain authoritative.
 
 ## Repository structure
 
@@ -84,7 +82,7 @@ README.md
 index.html
 requirements.txt
 data/                       unmodified TESS FITS + NASA row + SOURCE.md
-scripts/analyze_transit.py  real-data analysis and figure generation
+scripts/analyze_transit.py  timing-adjusted limb-darkened transit fit
 figures/                    generated plot + summary_statistics.csv
 tests/                      real-data regression tests
 .github/workflows/tests.yml CI on every push and pull request
