@@ -1,0 +1,23 @@
+quantity,value,unit
+events_fitted,62,count
+events_supported,62,count; individual Delta BIC >= 10
+center_epoch,1542,integer epoch used for conditioning
+tess_only_linear_bic,43.9254404076,
+tess_only_quadratic_bic,45.8419038189,
+tess_only_delta_bic_linear_minus_quadratic,-1.91646341137,
+tess_only_period_dot_ms_per_year,502.291674978,ms per year; not a supported decay measurement
+tess_only_period_dot_error_ms_per_year,337.826664846,ms per year
+published_events,158,count; transits plus occultations
+published_linear_chi_square,374.951522045,
+published_linear_dof,155,
+published_linear_bic,390.139307144,
+published_quadratic_chi_square,167.365481447,
+published_quadratic_dof,154,
+published_quadratic_bic,187.615861579,
+published_delta_bic_linear_minus_quadratic,202.523445564,
+published_period_dot,-9.27840240627e-10,days per day
+published_period_dot_error,6.43330207741e-11,days per day; formal timing errors
+published_period_dot_ms_per_year,-29.2804111776,ms per year
+published_period_dot_error_ms_per_year,2.03019573638,ms per year
+decay_timescale_years,3220537.60444,years; P/abs(Pdot)
+modified_stellar_tidal_quality_factor,206905.221812,Q-prime under equilibrium-tide convention

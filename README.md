@@ -37,6 +37,7 @@ A severely irradiated giant spiralling toward its star, framed as a careful TESS
 pip install -r requirements.txt
 python scripts/analyze_transit.py
 python scripts/analyze_multisector.py
+python scripts/analyze_orbital_decay.py
 pytest tests/ -v
 ```
 
@@ -73,6 +74,19 @@ The archive prediction was timing-adjusted independently in 3 fitted sector(s) (
 The per-sector table is in [`figures/multisector_statistics.csv`](figures/multisector_statistics.csv). Regenerate all three figures with `python scripts/analyze_multisector.py`.
 <!-- MULTISECTOR-UPGRADE-END -->
 
+## Orbital decay: what the long baseline adds
+
+<p align="center"><img src="figures/wasp12b_orbital_decay.png" alt="Observed minus calculated timing diagram for WASP-12 b" width="820"></p>
+
+The timing analysis deliberately separates two questions:
+
+- **Can the three committed TESS sectors establish curvature by themselves?** No. Although 62 individual transits pass the per-event ΔBIC ≥ 10 support gate, a quadratic ephemeris is not preferred over a linear model (ΔBIC<sub>linear−quadratic</sub> = −1.9). The TESS-only formal curvature is positive and poorly constrained, so it is not interpreted as orbital decay.
+- **Does the published long-baseline timing set favour decay?** Yes. A weighted fit to 158 published transit and occultation times gives **Ṗ = −29.28 ± 2.03 ms yr⁻¹** and strongly favours a quadratic ephemeris (**ΔBIC = 202.5**). The corresponding formal timescale is **P/|Ṗ| = 3.22 Myr**. Under the stated equilibrium-tide convention and saved system parameters, the derived modified stellar tidal quality factor is **Q′★ ≈ 2.07 × 10⁵**.
+
+The repository result agrees with, but is independently recalculated from, the published timing compilation. Yee et al. (2020) reported −29 ± 2 ms yr⁻¹, and the later TESS-inclusive analysis by Wong et al. (2022) reported −29.81 ± 0.94 ms yr⁻¹. Agreement is a reproduction check, not a claim that this repository discovered the decay.
+
+The committed event table is [`data/published_transit_occultation_times.csv`](data/published_transit_occultation_times.csv). Individual TESS measurements are in [`figures/individual_transit_timings.csv`](figures/individual_transit_timings.csv), while the model comparison and derived quantities are in [`figures/orbital_decay_statistics.csv`](figures/orbital_decay_statistics.csv).
+
 ## System context
 
 - Radius: 22.03 Earth radii
@@ -91,6 +105,8 @@ The per-sector table is in [`figures/multisector_statistics.csv`](figures/multis
 - Midpoint freedom corrects accumulated ephemeris error but introduces a bounded timing search. ΔBIC, not a naïve one-parameter p-value, is used as the support gate.
 - PDCSAP processing, dilution, stellar variability, transit-timing variations, and long-timescale covariance can still bias the inferred geometry.
 - Radius ratio, impact parameter, and fixed limb darkening are correlated. Published global fits with physical priors and simultaneous detrending remain authoritative.
+- Individual TESS timings fix the sector-level transit shape and are correlated through common detrending and stellar variability; their TESS-only curvature is therefore shown as a failed sensitivity check, not a decay measurement.
+- The long-baseline fit uses a separate constant offset for occultations to absorb light-travel time and any small `e cos(ω)` contribution, but it does not reproduce a full apsidal-precession model or re-reduce every historical light curve.
 
 ## Repository structure
 
@@ -98,8 +114,9 @@ The per-sector table is in [`figures/multisector_statistics.csv`](figures/multis
 README.md
 index.html
 requirements.txt
-data/                       unmodified TESS FITS + NASA row + SOURCE.md
+data/                       TESS FITS + NASA row + published timing table + SOURCE.md
 scripts/analyze_transit.py  timing-adjusted limb-darkened transit fit
+scripts/analyze_orbital_decay.py  individual timings + ephemeris comparison
 figures/                    generated plot + summary_statistics.csv
 tests/                      real-data regression tests
 .github/workflows/tests.yml CI on every push and pull request
@@ -112,6 +129,8 @@ LICENSE                     MIT
 2. Ricker, G. R. et al. (2015), *Transiting Exoplanet Survey Satellite (TESS)*, JATIS 1, 014003, [doi:10.1117/1.JATIS.1.1.014003](https://doi.org/10.1117/1.JATIS.1.1.014003).
 3. TESS Team, *TESS Light Curves — All Sectors*, MAST, [doi:10.17909/t9-nmc8-f686](https://doi.org/10.17909/t9-nmc8-f686); Sector 20 used here.
 4. [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/), `pscomppars` TAP row retrieved 2026-08-15.
+5. Yee, S. W. et al. (2020), *The Orbit of WASP-12b Is Decaying*, [doi:10.3847/2041-8213/ab5c16](https://doi.org/10.3847/2041-8213/ab5c16); machine-readable timing compilation mirrored by the [Susie example dataset](https://github.com/BoiseStatePlanetary/susie/blob/main/example_data/wasp12b_tra_occ.csv).
+6. Wong, I. et al. (2022), *TESS Revisits WASP-12: Updated Orbital Decay Rate and Constraints on Atmospheric Variability*, [doi:10.3847/1538-3881/ac5680](https://doi.org/10.3847/1538-3881/ac5680).
 
 ## Author
 

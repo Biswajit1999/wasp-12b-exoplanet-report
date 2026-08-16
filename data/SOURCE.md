@@ -42,3 +42,14 @@ All are unmodified standard-cadence SPOC light curves from the same [MAST TESS c
 - Sector 43: `tess2021258175143-s0043-0000000086396382-0214-s_lc.fits` (1,811,520 bytes)
   - MAST URI: `mast:TESS/product/tess2021258175143-s0043-0000000086396382-0214-s_lc.fits`
   - SHA-256: `e3d5c6f76884014ec1dec1eb60f04eaf734330a7abd8eef99141f49df03b2493`
+
+## Published transit and occultation timings
+
+- File: `published_transit_occultation_times.csv`
+- Rows: 158 timing measurements (transits and occultations)
+- Original scientific compilation: Yee et al. (2020), VizieR catalogue [`J/ApJ/888/L5`, table 5](https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=J%2FApJ%2F888%2FL5)
+- Accessible CSV mirror used for retrieval: [`BoiseStatePlanetary/susie`](https://github.com/BoiseStatePlanetary/susie/blob/main/example_data/wasp12b_tra_occ.csv)
+- Retrieved: 2026-08-16
+- SHA-256: `256924da97037ed037b3cf327ee7206d9099382d6ab215dff134c09c4351f3a1`
+
+The repository retains event type, BJD_TDB midpoint, 1σ timing uncertainty and integer epoch. `scripts/analyze_orbital_decay.py` maps occultations to half-integer event coordinates and fits a separate occultation offset, preventing a constant light-travel-time or `e cos(ω)` term from masquerading as quadratic curvature.
