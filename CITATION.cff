@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this analysis or its code, please cite the repository and its archived data sources."
 title: "WASP-12 b: Reproducing a Decaying Orbit"
 type: software
-version: 2.0.0
+version: 2.1.0
 date-released: 2026-10-04
 authors:
   - family-names: Jana

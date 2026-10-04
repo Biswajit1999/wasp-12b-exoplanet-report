@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 — 2026-10-04
+
+- Added a new scientifically informed artistic concept of WASP-12 b and its late-F host.
+- Labelled the image in the website and README as conceptual, non-observational and not to scale.
+- Documented which visual cues come from the orbital, tidal-deformation and phase-curve literature and which details remain interpretive.
+
 ## 2.0.0 — 2026-10-04
 
 - Completed the homogeneous 120-second TESS inventory with Sectors 44, 71 and 72, bringing the independent photometric check to six sectors and 119 supported event timings.

@@ -12,6 +12,10 @@
 
 A severely irradiated giant spiralling toward its star, framed as a careful TESS timing analysis where ephemeris drift is itself part of the science.
 <!-- TARGET-IDENTITY-END -->
+<p align="center"><img src="assets/wasp12b-artistic-concept.png" alt="Artistic concept of WASP-12 b close to its host star" width="900"></p>
+
+<p align="center"><em>Artistic concept—not an observation and not to scale. The tidal elongation, intense dayside heating and dark atmosphere are interpretive visual cues grounded in the system properties and phase-curve literature; see <a href="assets/CONCEPT_NOTE.md">visual provenance</a>.</em></p>
+
 <p align="center">
   <img src="figures/wasp12b_tess_transit.png" alt="Phase-folded real TESS transit light curve of WASP-12 b" width="760">
 </p>
