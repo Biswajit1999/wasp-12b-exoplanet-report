@@ -481,7 +481,7 @@ def main() -> dict[str, object]:
     tess_ax.set(
         xlabel=f"Transit epoch relative to E = {center_epoch:.0f}",
         ylabel="Observed − archive prediction [s]",
-        title="TESS-only check: 62 supported individual transits",
+        title=f"TESS-only check: {len(supported)} supported individual transits",
     )
     tess_ax.text(
         0.02, 0.04,
