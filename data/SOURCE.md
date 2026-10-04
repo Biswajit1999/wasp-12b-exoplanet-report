@@ -29,9 +29,9 @@ The saved row is the input actually used by `scripts/analyze_transit.py`; the
 analysis does not query a changing live service at run time.
 
 
-## Additional TESS sectors for robustness analysis
+## Complete target-specific 120-second TESS inventory
 
-All are unmodified standard-cadence SPOC light curves from the same [MAST TESS collection](https://doi.org/10.17909/t9-nmc8-f686).
+All six files are unmodified 120-second SPOC light curves from the same [MAST TESS collection](https://doi.org/10.17909/t9-nmc8-f686). A coordinate query at the saved target position was repeated on 2026-10-04. The query also returned full-frame-image observations and later 20-second products; those are excluded to avoid mixing cadences or counting the same transit twice.
 
 - Sector 20: `tess2019357164649-s0020-0000000086396382-0165-s_lc.fits` (1,926,720 bytes)
   - MAST URI: `mast:TESS/product/tess2019357164649-s0020-0000000086396382-0165-s_lc.fits`
@@ -42,6 +42,15 @@ All are unmodified standard-cadence SPOC light curves from the same [MAST TESS c
 - Sector 43: `tess2021258175143-s0043-0000000086396382-0214-s_lc.fits` (1,811,520 bytes)
   - MAST URI: `mast:TESS/product/tess2021258175143-s0043-0000000086396382-0214-s_lc.fits`
   - SHA-256: `e3d5c6f76884014ec1dec1eb60f04eaf734330a7abd8eef99141f49df03b2493`
+- Sector 44: `tess2021284114741-s0044-0000000086396382-0215-s_lc.fits` (1,776,960 bytes)
+  - MAST URI: `mast:TESS/product/tess2021284114741-s0044-0000000086396382-0215-s_lc.fits`
+  - SHA-256: `fab2038adf1134d3d5069c2dc5e01f2bcd17a7d524629edb669118a11b204e0a`
+- Sector 71: `tess2023289093419-s0071-0000000086396382-0266-s_lc.fits` (1,897,920 bytes)
+  - MAST URI: `mast:TESS/product/tess2023289093419-s0071-0000000086396382-0266-s_lc.fits`
+  - SHA-256: `2e112a9352bab08e4e3228daebb9b53d6fe829378fea7b5a4aafcbed7187e844`
+- Sector 72: `tess2023315124025-s0072-0000000086396382-0267-s_lc.fits` (1,860,480 bytes)
+  - MAST URI: `mast:TESS/product/tess2023315124025-s0072-0000000086396382-0267-s_lc.fits`
+  - SHA-256: `5330ed8251ef5ece4c96ecb55023652f1014a2a007af4df9fcc438fd9fbdb586`
 
 ## Published transit and occultation timings
 
@@ -53,3 +62,16 @@ All are unmodified standard-cadence SPOC light curves from the same [MAST TESS c
 - SHA-256: `256924da97037ed037b3cf327ee7206d9099382d6ab215dff134c09c4351f3a1`
 
 The repository retains event type, BJD_TDB midpoint, 1σ timing uncertainty and integer epoch. `scripts/analyze_orbital_decay.py` maps occultations to half-integer event coordinates and fits a separate occultation offset, preventing a constant light-travel-time or `e cos(ω)` term from masquerading as quadratic curvature.
+
+## 2024 transit-timing compilation
+
+- File: `leonardi2024_literature_timings.tsv`
+- Rows: 379 transit mid-times spanning epochs −2833 to 1869
+- Catalogue: Leonardi et al. (2024), VizieR [`J/A+A/686/A84`, table `t0-lit`](https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/686/A84)
+- Article: [doi:10.1051/0004-6361/202348363](https://doi.org/10.1051/0004-6361/202348363)
+- Catalogue DOI: [doi:10.26093/cds/vizier.36860084](https://doi.org/10.26093/cds/vizier.36860084)
+- Exact query: <https://vizier.cds.unistra.fr/viz-bin/asu-tsv?-source=J%2FA%2BA%2F686%2FA84%2Ft0-lit&-out.all&-out.max=unlimited>
+- Retrieved: 2026-10-04
+- SHA-256: `14688a4142526a54d60a9f872f159506f5584befb9d1fa4ce6f6366b24fc2e39`
+
+The TSV is the verbatim VizieR response, including metadata, units and source codes. It is the primary input for the expanded linear-versus-quadratic fit and source-group deletion analysis. The older Yee et al. transit-plus-occultation table is retained because the opposing timing response of occultations supplies the cleaner public test of an apsidal-precession alternative.
